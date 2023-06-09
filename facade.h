@@ -14,7 +14,7 @@ public:
     ~Facade(){};
     std::string fp;
     std::string read_operation();
-    int check_operation();
+    AllInformationsAboutError check_operation();
 };
 
 #endif // FACADE_H

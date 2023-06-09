@@ -5,6 +5,15 @@
 #include "stack"
 using namespace std;
 
+typedef struct error
+{
+    string errorType;
+    int cols;
+    int rows;
+    bool containError = false;
+
+}AllInformationsAboutError;
+
 class WorkWithFile
 {
 public:
@@ -30,19 +39,26 @@ class JsonChecker
 public:
     JsonChecker(string ft):fileText(ft){}
 
-    bool fullChecker()
+    AllInformationsAboutError fullChecker()
     {
-        int result = true;
-        result = balanced(fileText);
+        AllInformationsAboutError result;
+        result = balanced();
         return result;
     }
 
 private:
     string fileText;
 
-    bool balanced(const std::string &s) {
+    AllInformationsAboutError balanced() {
         std::stack<char> stack;
-        for (char c : s) {
+        AllInformationsAboutError error;
+        error.errorType = "parenthesis error";
+        for (char c : fileText) {
+            if(c == '\n')
+            {
+                error.cols = 0;
+                error.rows++;
+            }
             switch (c) {
 
             case '(': stack.push(')'); break;
@@ -55,15 +71,19 @@ private:
             case '}':
             case '>':
                 if (stack.empty() || stack.top() != c) {
-                    return false;
+                    error.containError = 1;
+                    return error;
                 }
                 stack.pop();
                 break;
             default:
                 break;
             }
+            error.cols++;
         }
-        return stack.empty();
+        if(!stack.empty())
+            error.containError = 1;
+        return error;
     }
 };
 
