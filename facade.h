@@ -15,6 +15,8 @@ public:
     std::string fp;
     std::string read_operation();
     void check_operation(const std::string& ft);
+    // тест для германа
+
 };
 
 #endif // FACADE_H
