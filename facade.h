@@ -7,16 +7,14 @@
 
 class Facade {
 private:
-     WorkWithFile file_worker; // памагииииииитее нужно хранить имя файла только тута не в главном окне точка аш
-//    Json_checker json_cheker;
+     WorkWithFile* fileWorker; // памагииииииитее нужно хранить имя файла только тута не в главном окне точка аш
+     JsonChecker* jsonCheker;
 public:
-    Facade(WorkWithFile file):file_worker(file){};
+    Facade(WorkWithFile* file = nullptr, JsonChecker* checker = nullptr):fileWorker(file), jsonCheker(checker){};
     ~Facade(){};
     std::string fp;
     std::string read_operation();
-    void check_operation(const std::string& ft);
-    // тест для германа
-
+    int check_operation();
 };
 
 #endif // FACADE_H
